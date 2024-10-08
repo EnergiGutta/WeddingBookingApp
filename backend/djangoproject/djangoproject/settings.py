@@ -26,7 +26,8 @@ SECRET_KEY = "django-insecure-hv37sp-#1f=1q*o(5@lvqhmkne(+s!92#jsv!*tcmucd#t5gul
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Move to ENV!
+ALLOWED_HOSTS = ["selinogerlend.onrender.com"]
 
 
 # Application definition
@@ -150,5 +151,5 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Media files settings
-MEDIA_URL = '/'
+MEDIA_URL = "/"
 MEDIA_ROOT = BASE_DIR
