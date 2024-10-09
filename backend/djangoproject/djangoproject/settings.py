@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-hv37sp-#1f=1q*o(5@lvqhmkne(+s!92#jsv!*tcmucd#t5gul
 DEBUG = True
 
 # Move to ENV!
-ALLOWED_HOSTS = ["selinogerlend.onrender.com"]
+ALLOWED_HOSTS = ["selinogerlend.onrender.com", "127.0.0.1"]
 
 
 # Application definition
@@ -127,6 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'api.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
