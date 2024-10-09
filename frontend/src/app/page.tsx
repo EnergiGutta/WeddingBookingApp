@@ -12,6 +12,8 @@ type Image = {
   image: string;
 }
 
+
+
 export default function Home() {
   const BACKEND_URL = 'http://localhost:8000'; // The backend base URL
   const [drinks, setDrinks] = useState<Drink[]>([]); // State for drinks as an array of Drink
