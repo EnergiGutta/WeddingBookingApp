@@ -1,4 +1,4 @@
-name: Deploy Next.js to Netlify (Corrected)
+name: Deploy Next.js to Netlify
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./frontend  # Ensure this is correct
+        working-directory: ./frontend
 
     steps:
       - name: Checkout repository
@@ -30,9 +30,6 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: List build output
-        run: ls -R .next
-
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
@@ -40,11 +37,4 @@ jobs:
         env:
          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-         echo "Current working directory: $(pwd)"
-         echo "Contents of current directory:"
-         ls -la
-         echo "Contents of .next directory:"
-         ls -la .next
-         echo "Deploying to Netlify..."
-         netlify deploy --prod --dir=.next --debug
+        run: netlify deploy
