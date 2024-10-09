@@ -36,5 +36,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          echo "Deploying to production..."
-          netlify deploy --prod --site ${{ secrets.NETLIFY_SITE_ID }}  # Correct: Deploys to production using site ID
+          netlify deploy --prod --site ${{ secrets.NETLIFY_SITE_ID }}
