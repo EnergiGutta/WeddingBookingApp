@@ -38,11 +38,13 @@ jobs:
 
       - name: Deploy to Netlify
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          echo "Current working directory: $(pwd)"
-          echo "Contents of current directory:"
-          ls -la
-          echo "Deploying to Netlify..."
-          netlify deploy --prod --dir=.next
+         echo "Current working directory: $(pwd)"
+         echo "Contents of current directory:"
+         ls -la
+         echo "Contents of .next directory:"
+         ls -la .next
+         echo "Deploying to Netlify..."
+         netlify deploy --prod --dir=.next --debug
