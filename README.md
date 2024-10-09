@@ -1,5 +1,10 @@
 # Wedding Booking Drink App 🥂
 This project is a simple Wedding Booking Drink App designed to help users plan and manage drink orders for weddings or other events. It was built as a hobby project to experiment with modern web technologies and provide an easy-to-use interface for organizing beverage logistics for special occasions.
+Frontend is hosted at: https://selinogerlend.netlify.app/
+Backend is hosted at: https://selinogerlend.onrender.com/api
+Backend Docs: https://selinogerlend.onrender.com/api/docs 
+
+
 
 ## Features ✨
 * Browse and Select Drinks: View a collection of available beverages (both alcoholic and non-alcoholic) with detailed descriptions and images.
