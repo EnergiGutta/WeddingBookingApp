@@ -1,0 +1,8 @@
+[MASTER]
+# Add Django to the list of known third-party libraries
+extension-pkg-whitelist=django
+
+[TYPECHECK]
+# Add Django to the list of ignored modules
+ignored-modules=django
+ignored-classes=django.db.models.Model
