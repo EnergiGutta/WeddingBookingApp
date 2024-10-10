@@ -1,40 +1,53 @@
-name: Deploy Next.js to Netlify
+name: Deploy Frontend to Netlify
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+    paths:
+      - 'monorepo/frontend/**'
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
 
     steps:
-      - name: Checkout repository
+      - name: 🛎️ Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Set up Node.js
+      # - name: 📥 Cache Node.js dependencies
+        # uses: actions/cache@v3
+        # with:
+          # path: monorepo/frontend/node_modules
+          # key: ${{ runner.os }}-monorepo-frontend-${{ hashFiles('monorepo/frontend/package-lock.json') }}
+          # restore-keys: |
+            # ${{ runner.os }}-monorepo-frontend-
+
+      - name: 📦 Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
+          cache: 'npm'
 
-      - name: Install dependencies
+      - name: 📚 Install dependencies
+        working-directory: monorepo/frontend
         run: npm ci
 
-      - name: Build Next.js app
+      - name: ✅ Run Tests
+        working-directory: monorepo/frontend
+        run: npm test
+
+      - name: 🔨 Build Next.js app
+        working-directory: monorepo/frontend
         run: npm run build
 
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy to Netlify
+      - name: 🚀 Deploy to Netlify
+        working-directory: monorepo/frontend
         env:
-         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: netlify deploy
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npm install netlify-cli -g
+          netlify deploy --prod --dir=.next --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
