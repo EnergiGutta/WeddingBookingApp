@@ -14,7 +14,7 @@ api = NinjaAPI()
 
 
 @api.get("/hello")
-def hello(request, name: str = "knallis"):
+def hello(request, name: str = "knall"):
     return {"message": f"Hello {name}"}
 
 
@@ -27,12 +27,17 @@ def list_drinks(request):
     # Create response
     return JsonResponse(list(drinks), safe=False)
 
+
 @api.get("/drink_images")
 def get_image(request):
     images = DrinkImage.objects.all()
-    images_data = [{"id": image.id, "drink": image.drink.id, "image": image.image.url} for image in images]
+    images_data = [
+        {"id": image.id, "drink": image.drink.id, "image": image.image.url}
+        for image in images
+    ]
 
     return JsonResponse(images_data, safe=False)
+
 
 @api.get("/drink_image/", response=DrinkImageSchema)
 def get_image(request, image_id: int):
