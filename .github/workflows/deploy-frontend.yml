@@ -1,40 +1,36 @@
-name: Deploy Next.js to Netlify
+name: Deploy Frontend to Netlify
+
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+    paths:
+    - 'frontend/**'
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
 
     steps:
-      - name: Checkout repository
+      - name: 🛎️ Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: 📦 Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
+          cache: 'npm'
 
-      - name: Install dependencies
+      - name: 📚 Install dependencies
+        working-directory: frontend
         run: npm install
 
-      - name: Build Next.js app
-        run: npm run build
+      - name: 📦 Install Netlify CLI
+        run: npm install netlify-cli -g
 
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy to Netlify
+      - name: 🚀 Deploy to Netlify
+        working-directory: frontend
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: |
-          echo "Deploying to production..."
-          netlify deploy --prod --site ${{ secrets.NETLIFY_SITE_ID }}  # Correct: Deploys to production using site ID
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID

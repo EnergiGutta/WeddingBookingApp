@@ -12,6 +12,8 @@ type Image = {
   image: string;
 }
 
+
+
 export default function Home() {
   const BACKEND_URL = 'http://localhost:8000'; // The backend base URL
   const [drinks, setDrinks] = useState<Drink[]>([]); // State for drinks as an array of Drink
@@ -54,7 +56,7 @@ export default function Home() {
   const name = "utvikler"
   return ( <div className='flex flex-col gap-4'>
     <div>
-    Hei {name}, vennligst bestill drikke nedenfor
+    Hei {name}, vennligst bestill drikke nedenfor. I am automatically deployed to netlify!
     </div>
 
     <div>
