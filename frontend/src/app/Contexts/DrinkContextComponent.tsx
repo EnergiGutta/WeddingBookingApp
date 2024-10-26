@@ -14,11 +14,11 @@ export const DrinkContext = createContext<{
 
 
 
-  interface DrinkContextFileProps {
+  interface DrinkContextComponentProps {
     children: ReactNode;
   }
 
-  export const DrinkContextFile: React.FC<DrinkContextFileProps> = ({ children }) => {
+  export const DrinkContextComponent: React.FC<DrinkContextComponentProps> = ({ children }) => {
     const [counts, setCounts] = useState({ 'Hansa': 0, 'Gin & Tonic': 0, 'Amaretto Sour': 0 });
   
     const setCount = (beverage: string, count: number) => {

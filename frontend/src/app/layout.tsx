@@ -3,7 +3,7 @@ import "./globals.css";
 
 import { Forum } from 'next/font/google'
 import Navbar from "@/components/ui/navbar";
-import { DrinkContextFile as DrinkContextComponent } from "./Contexts/DrinkContextComponent";
+import { DrinkContextComponent as DrinkContextComponent } from "./Contexts/DrinkContextComponent";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
