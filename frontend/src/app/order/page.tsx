@@ -1,17 +1,23 @@
 "use client";
 
+import { DrinkContext } from "@/app/Contexts/DrinkContextFile";
+import { useContext } from "react";
 import { DrinkImage } from "@/components/ui/drink";
-import { drinkData } from "@/app/layout";
 
 export default function OrderPage() {
+
+  const {counts} = useContext(DrinkContext);
   return (
     <div>
-      <div style={{ height: '40px' }}></div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '80%', margin: '0 auto' }}>
-        {Object.values(drinkData.drinks).map((drink, index) => (
-          <DrinkImage key={index} title={drink.view_string} imageName={drink.imageName} />
-        ))}
-      </div>
+      <h1>Order</h1>
+      <ul>
+        <li>Hansa: {counts['Hansa']}</li>
+        <li>Gin & Tonic: {counts['Gin & Tonic']}</li>
+        <li>Amaretto Sour: {counts['Amaretto Sour']}</li>
+      </ul>
+      <DrinkImage title={"Hansa"} imageName={"hansa.png"} />
+      <DrinkImage title={"Gin & Tonic"} imageName={"gin_tonic.png"} />
+      <DrinkImage title={"Amaretto Sour"} imageName={"amaretto_sour.png"} />
     </div>
   );
-};
+}

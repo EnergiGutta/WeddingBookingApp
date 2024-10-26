@@ -1,11 +1,21 @@
-import React from 'react';
+"use client";
 
-const CheckoutPage: React.FC = () => {
-    return (
-        <div>
-            <h1>Order Now</h1>
-        </div>
-    );
+import { DrinkContext } from "@/app/Contexts/DrinkContextFile";
+import { useContext } from "react";
+import { DrinkImage } from "@/components/ui/drink";
+
+export default function CheckoutPage() {
+
+  const {counts} = useContext(DrinkContext);
+  return (
+    <div>
+      <h1>Order</h1>
+      <p>Drinks:</p>
+      <ul>
+        <li>Hansa: {counts['Hansa']}</li>
+        <li>Gin & Tonic: {counts['Gin & Tonic']}</li>
+        <li>Amaretto Sour: {counts['Amaretto Sour']}</li>
+      </ul>
+    </div>
+  );
 };
-
-export default CheckoutPage;
