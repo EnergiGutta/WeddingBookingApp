@@ -3,7 +3,7 @@ import "./globals.css";
 
 import { Forum } from 'next/font/google'
 import Navbar from "@/components/ui/navbar";
-import { DrinkContextFile } from "./Contexts/DrinkContextFile";
+import { DrinkContextFile as DrinkContextComponent } from "./Contexts/DrinkContextComponent";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -27,12 +27,12 @@ export default function RootLayout({
       <body>
       <div className={forum.className}>
         <Navbar />
-        <DrinkContextFile>
+        <DrinkContextComponent>
           {children}
           <Button asChild>
         <Link href="/order">Order</Link>
           </Button>
-        </DrinkContextFile>
+        </DrinkContextComponent>
       </div>
       </body>
     </html>

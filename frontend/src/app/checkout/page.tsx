@@ -1,6 +1,6 @@
 "use client";
 
-import { DrinkContext } from "@/app/Contexts/DrinkContextFile";
+import { DrinkContext } from "@/app/Contexts/DrinkContextComponent";
 import { useContext } from "react";
 import { DrinkImage } from "@/components/ui/drink";
 

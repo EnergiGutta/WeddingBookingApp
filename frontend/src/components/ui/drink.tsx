@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { DrinkContext } from "@/app/Contexts/DrinkContextFile";
+import { DrinkContext } from "@/app/Contexts/DrinkContextComponent";
 import { useContext } from "react";
 
 interface DrinkImageProps {
