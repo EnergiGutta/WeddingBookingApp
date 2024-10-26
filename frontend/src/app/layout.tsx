@@ -3,15 +3,19 @@ import "./globals.css";
 
 import { Forum } from 'next/font/google'
 import Navbar from "@/components/ui/navbar";
+import { DrinkContextComponent as DrinkContextComponent } from "./Contexts/DrinkContextComponent";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-import { DrinkImage } from "@/components/ui/drink";
  
 const forum = Forum({ subsets: ['latin'], weight: "400" })
 
-export const metadata: Metadata = {
+
+const metadata: Metadata = {
   title: "Bar booking",
   description: "Selin & Erlend bar booking app",
 };
+
 
 export default function RootLayout({
   children,
@@ -20,15 +24,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={forum.className}>
-      <Navbar></Navbar>
-        {children}
-        <div style={{ height: '40px' }}></div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '80%', margin: '0 auto' }}>
-          <DrinkImage title="Hansa" imageName={"hansa.png"}></DrinkImage>
-          <DrinkImage title="Gin & Tonic" imageName={"gin_tonic.png"}></DrinkImage>
-          <DrinkImage title="Amaretto Sour" imageName={"amaretto_sour.png"}></DrinkImage>
-        </div>
+      <body>
+      <div className={forum.className}>
+        <Navbar />
+        <DrinkContextComponent>
+          {children}
+          <Button asChild>
+        <Link href="/order">Order</Link>
+          </Button>
+        </DrinkContextComponent>
+      </div>
       </body>
     </html>
   );
