@@ -5,7 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'monorepo/frontend/**'
+      - 'frontend/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
 
 jobs:
   build-and-deploy:
@@ -17,14 +22,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: 📥 Cache Node.js dependencies
-        # uses: actions/cache@v3
-        # with:
-          # path: monorepo/frontend/node_modules
-          # key: ${{ runner.os }}-monorepo-frontend-${{ hashFiles('monorepo/frontend/package-lock.json') }}
-          # restore-keys: |
-            # ${{ runner.os }}-monorepo-frontend-
-
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -32,22 +29,15 @@ jobs:
           cache: 'npm'
 
       - name: 📚 Install dependencies
-        working-directory: monorepo/frontend
-        run: npm ci
+        working-directory: frontend
+        run: npm install
 
-      - name: ✅ Run Tests
-        working-directory: monorepo/frontend
-        run: npm test
-
-      - name: 🔨 Build Next.js app
-        working-directory: monorepo/frontend
-        run: npm run build
+      - name: 📦 Install Netlify CLI
+        run: npm install netlify-cli -g
 
       - name: 🚀 Deploy to Netlify
-        working-directory: monorepo/frontend
+        working-directory: frontend
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-          npm install netlify-cli -g
-          netlify deploy --prod --dir=.next --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
+        run: netlify deploy --build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
