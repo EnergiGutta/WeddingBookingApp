@@ -5,24 +5,21 @@ type Drink = {
   id: number;
   name: string;
   description: string;
+  image: string | null;
 }
 
-type Image = {
-  drink: number;
-  image: string;
-}
 
 export default function Home() {
   const BACKEND_URL = 'http://localhost:8000'; // The backend base URL
+
   const [drinks, setDrinks] = useState<Drink[]>([]); // State for drinks as an array of Drink
-  const [images, setImages] = useState<Image[]>([]); // State for image URL
   const [loading, setLoading] = useState<boolean>(true); // Loading state
 
   useEffect(() => {
     const fetchDrinks = async () => {
       try {
         setLoading(true); // Set loading to true before fetching
-        const response = await fetch('http://127.0.0.1:8000/api/drinks');
+        const response = await fetch(BACKEND_URL + '/api/drinks');
         
         // Check if the response is ok (status 200-299)
         if (!response.ok) {
@@ -31,11 +28,6 @@ export default function Home() {
 
         const data = await response.json(); // Parse JSON data
         setDrinks(data); // Update state with fetched drinks
-
-        const responseImages = await fetch('http://localhost:8000/api/drink_images');
-        const dataImages = await responseImages.json();
-        console.log(dataImages);
-        setImages(dataImages);
 
       } catch (error) {
         console.error('Error fetching drinks:', error); // Log any errors
@@ -48,29 +40,33 @@ export default function Home() {
   }, []);
   
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...din dritt</div>;
   }
 
   const name = "utvikler"
   return ( <div className='flex flex-col gap-4'>
     <div>
-    Hei {name}, vennligst bestill drikke nedenfor
+    Hei {name}, vennligst bestill drikke nedenfor tulling
     </div>
 
     <div>
     <h1 className='text-xl font-bold'>Drinks</h1>
     <div>
     {drinks.map((drink) => {
-      // Find the image corresponding to the current drink
-      const drinkImage = images.find(img => img.drink === drink.id);
-      const fullImageUrl = `${BACKEND_URL}/${drinkImage?.image}`;
+      console.log(drink);
+      const hasDrinkImage = drink.image !== null; // Check if the drink has an image
+      var fullImageUrl = ""; 
+      if (hasDrinkImage) {
+        fullImageUrl = `${BACKEND_URL}/${drink.image}`;
+      }
+      
 
       return (
         <div key={drink.id}>
           <h2>{drink.name}</h2>
           <div>
             {/* Render the image if it exists */}
-            {drinkImage ? (
+            {hasDrinkImage ? (
               <img
                 src={fullImageUrl}
                 alt={drink.name}
